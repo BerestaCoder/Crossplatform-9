@@ -69,30 +69,34 @@ class _SaveScreenState extends State<SaveScreen> {
         title: const Text("Асинхронное программирование"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-                child: ListTile(
-                  title: const Text("Сохранение 2"),
-                  subtitle: Text(_convertStateToText(_save1.getState())),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.save),
-                    onPressed: () => _saveSlotOne(),
-                  ),
-                )
-            ),
-            Card(
-                child: ListTile(
-                  title: const Text("Сохранение 2"),
-                  subtitle: Text(_convertStateToText(_save2.getState())),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.save),
-                    onPressed: () => _saveSlotTwo(),
-                  ),
-                )
-            ),
-          ],
+        child: SizedBox(
+          width: 500,
+          height: 500,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                  child: ListTile(
+                    title: const Text("Сохранение 1"),
+                    subtitle: Text(_convertStateToText(_save1.getState())),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.save),
+                      onPressed: () => _saveSlotOne(),
+                    ),
+                  )
+              ),
+              Card(
+                  child: ListTile(
+                    title: const Text("Сохранение 2"),
+                    subtitle: Text(_convertStateToText(_save2.getState())),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.save),
+                      onPressed: () => _saveSlotTwo(),
+                    ),
+                  )
+              ),
+            ],
+          ),
         ),
       ),
     );
