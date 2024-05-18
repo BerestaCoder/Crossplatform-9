@@ -10,6 +10,19 @@ class Save
   {
     return _state;
   }
+  String getStateinText()
+  {
+    switch (_state) {
+      case SaveState.empty:
+        return 'Пусто';
+      case SaveState.loading:
+        return 'Загружается...';
+      case SaveState.saved:
+        return 'Сохранено!';
+      default:
+        return 'Ошибка!';
+    }
+  }
 }
 enum SaveState
 {

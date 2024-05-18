@@ -14,20 +14,6 @@ class _SaveScreenState extends State<SaveScreen> {
   Save _save1 = GetIt.I<Save>(instanceName: 'save_1');
   Save _save2 = GetIt.I<Save>(instanceName: 'save_2');
 
-  String _convertStateToText(SaveState state)
-  {
-    switch (state) {
-      case SaveState.empty:
-        return 'Пусто';
-      case SaveState.loading:
-        return 'Загружается...';
-      case SaveState.saved:
-        return 'Сохранено!';
-      default:
-        return 'Ошибка!';
-    }
-  }
-
   // Future API
   void _saveSlotOne() {
     setState(() {
@@ -78,7 +64,7 @@ class _SaveScreenState extends State<SaveScreen> {
               Card(
                   child: ListTile(
                     title: const Text("Сохранение 1"),
-                    subtitle: Text(_convertStateToText(_save1.getState())),
+                    subtitle: Text(_save1.getStateinText()),
                     trailing: IconButton(
                       icon: const Icon(Icons.save),
                       onPressed: () => _saveSlotOne(),
@@ -88,7 +74,7 @@ class _SaveScreenState extends State<SaveScreen> {
               Card(
                   child: ListTile(
                     title: const Text("Сохранение 2"),
-                    subtitle: Text(_convertStateToText(_save2.getState())),
+                    subtitle: Text(_save2.getStateinText()),
                     trailing: IconButton(
                       icon: const Icon(Icons.save),
                       onPressed: () => _saveSlotTwo(),
