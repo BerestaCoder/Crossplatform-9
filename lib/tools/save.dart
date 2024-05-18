@@ -6,10 +6,15 @@ class Save
   {
     _state = state;
   }
+  SaveState getState()
+  {
+    return _state;
+  }
 }
 enum SaveState
 {
   empty,
+  loading,
   saved,
-  corrupted
+  corrupted,
 }

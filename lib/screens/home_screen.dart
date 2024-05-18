@@ -1,11 +1,12 @@
 import 'package:crossplatform9/screens/basket/basket_screen.dart';
 import 'package:crossplatform9/screens/left_right/left_image_screen.dart';
-import 'package:crossplatform9/screens/list/list_screen.dart';
+import 'package:crossplatform9/tools/save.dart';
 import 'package:crossplatform9/screens/profile/profile_screen.dart';
 import 'package:crossplatform9/screens/save/save_screen.dart';
 import 'package:crossplatform9/tools/platform_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:get_it/get_it.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -18,9 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    getIt
-        .isReady<AppModel>()
-        .then((_) => getIt<AppModel>().addListener(update));
+    GetIt.I.registerSingleton<Save>(Save(SaveState.empty), instanceName: 'save_1');
+    GetIt.I.registerSingleton<Save>(Save(SaveState.saved), instanceName: 'save_2');
 
     super.initState();
   }

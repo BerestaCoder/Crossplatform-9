@@ -1,6 +1,7 @@
 import 'dart:math';
-
+import 'package:crossplatform9/tools/save.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class SaveScreen extends StatefulWidget {
   const SaveScreen({super.key});
@@ -10,35 +11,50 @@ class SaveScreen extends StatefulWidget {
 }
 
 class _SaveScreenState extends State<SaveScreen> {
-  Text _saveSlotTextOne = Text("Пустой слот");
-  Text _saveSlotTextTwo = Text("Пустой слот");
+  Save _save1 = GetIt.I<Save>(instanceName: 'save_1');
+  Save _save2 = GetIt.I<Save>(instanceName: 'save_2');
+
+  String _convertStateToText(SaveState state)
+  {
+    switch (state) {
+      case SaveState.empty:
+        return 'Пусто';
+      case SaveState.loading:
+        return 'Загружается...';
+      case SaveState.saved:
+        return 'Сохранено!';
+      default:
+        return 'Ошибка!';
+    }
+  }
 
   // Future API
   void _saveSlotOne() {
     setState(() {
-      _saveSlotTextOne = Text("Ждём...");
+      _save1.setState(SaveState.loading);
     });
     Future<bool> messageFuture = getRandomBool();
     messageFuture.then((result){
       setState(() {
-        if (result)
-          _saveSlotTextOne = Text("Успешно сохранено", style: TextStyle(color: Colors.green));
-        else
-          _saveSlotTextOne = Text("Ошибка сохранения", style: TextStyle(color: Colors.red));
+        if (result) {
+          _save1.setState(SaveState.saved);
+        } else {
+          _save1.setState(SaveState.corrupted);
+        }
       });
     });
   }
   // await
   Future<void> _saveSlotTwo() async {
     setState(() {
-      _saveSlotTextTwo = Text("Ждём...");
+      _save2.setState(SaveState.loading);
     });
     bool result = await getRandomBool();
     setState(() {
       if (result)
-        _saveSlotTextTwo = Text("Успешно сохранено", style: TextStyle(color: Colors.green));
+        _save2.setState(SaveState.saved);
       else
-        _saveSlotTextTwo = Text("Ошибка сохранения", style: TextStyle(color: Colors.red));
+        _save2.setState(SaveState.corrupted);
     });
   }
   // Возвращает истину или ложь, иммитируя загрузку сохранения
@@ -58,8 +74,8 @@ class _SaveScreenState extends State<SaveScreen> {
           children: [
             Card(
                 child: ListTile(
-                  title: const Text("Сохранение 1"),
-                  subtitle: _saveSlotTextOne,
+                  title: const Text("Сохранение 2"),
+                  subtitle: Text(_convertStateToText(_save1.getState())),
                   trailing: IconButton(
                     icon: const Icon(Icons.save),
                     onPressed: () => _saveSlotOne(),
@@ -69,7 +85,7 @@ class _SaveScreenState extends State<SaveScreen> {
             Card(
                 child: ListTile(
                   title: const Text("Сохранение 2"),
-                  subtitle: _saveSlotTextTwo,
+                  subtitle: Text(_convertStateToText(_save2.getState())),
                   trailing: IconButton(
                     icon: const Icon(Icons.save),
                     onPressed: () => _saveSlotTwo(),
