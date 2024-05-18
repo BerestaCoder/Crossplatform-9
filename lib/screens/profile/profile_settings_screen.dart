@@ -34,7 +34,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Домащняя страница'),
+        title: const Text('Изменение профиля пользователя'),
       ),
       body: Center(
           child: SizedBox(

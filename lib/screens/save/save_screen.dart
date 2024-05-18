@@ -52,7 +52,7 @@ class _SaveScreenState extends State<SaveScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Асинхронное программирование"),
+        title: const Text("Сохранение"),
       ),
       body: Center(
         child: SizedBox(
